@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getMeta, getEnv } from "@/lib/r2";
+import { getMeta } from "@/lib/r2";
 import PlayerClient from "./PlayerClient";
 
 export const runtime = "edge";
