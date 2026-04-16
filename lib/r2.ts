@@ -1,5 +1,11 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getRequestContext } from "@cloudflare/next-on-pages";
+import { DOMParser } from "@xmldom/xmldom";
+
+// Cloudflare Workers には DOMParser がないため polyfill
+if (typeof globalThis.DOMParser === "undefined") {
+  (globalThis as unknown as Record<string, unknown>).DOMParser = DOMParser;
+}
 
 export const META_KEY = "_meta.json";
 export type MetaMap = Record<string, { displayName: string }>;
