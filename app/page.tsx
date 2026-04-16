@@ -15,7 +15,7 @@ export default function TopPage() {
     <main className="relative min-h-screen flex flex-col items-center justify-center px-6">
       <OilBackground />
 
-      <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12 w-full max-w-2xl">
+      <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12" style={{ width: "90%" }}>
 
         {/* タイトル */}
         <h1
