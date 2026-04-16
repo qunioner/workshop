@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Nunito } from "next/font/google";
+import OilBackground from "@/components/OilBackground";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -170,7 +171,11 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-6 py-16 gap-10">
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-6 py-16 gap-10">
+      <OilBackground />
+
+      {/* コンテンツ（背景の上） */}
+      <div className="relative z-10 w-full flex flex-col items-center gap-10">
 
       {/* タイトル（バリアブルフォント アニメーション） */}
       <h1
@@ -316,6 +321,8 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
           )}
         </button>
       </div>
+
+      </div>{/* z-10 wrapper end */}
     </div>
   );
 }
