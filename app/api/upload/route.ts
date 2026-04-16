@@ -4,12 +4,20 @@ import {
   DeleteObjectsCommand,
 } from "@aws-sdk/client-s3";
 import { NextRequest, NextResponse } from "next/server";
-import { createS3Client, getBucketName, META_KEY, getMeta, saveMeta } from "@/lib/r2";
+import {
+  createS3Client,
+  getBucketName,
+  META_KEY,
+  getMeta,
+  saveMeta,
+  getAdminPassword,
+  getPublicDomain,
+} from "@/lib/r2";
 
 export const runtime = "edge";
 
 function checkAuth(req: NextRequest) {
-  return req.headers.get("x-admin-password") === process.env.ADMIN_PASSWORD;
+  return req.headers.get("x-admin-password") === getAdminPassword();
 }
 
 /** GET /api/upload — ファイル一覧 */
@@ -38,7 +46,7 @@ export async function GET(req: NextRequest) {
         obj.Key!.replace(/^\d+_/, "").replace(/\.[^.]+$/, ""),
       size: obj.Size ?? 0,
       lastModified: obj.LastModified?.toISOString() ?? null,
-      publicUrl: `${process.env.R2_PUBLIC_DOMAIN}/${obj.Key}`,
+      publicUrl: `${getPublicDomain()}/${obj.Key}`,
     }));
 
   return NextResponse.json({ files });
@@ -78,7 +86,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     key,
-    publicUrl: `${process.env.R2_PUBLIC_DOMAIN}/${key}`,
+    publicUrl: `${getPublicDomain()}/${key}`,
   });
 }
 

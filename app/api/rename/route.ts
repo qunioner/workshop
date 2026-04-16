@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getMeta, saveMeta } from "@/lib/r2";
+import { getMeta, saveMeta, getAdminPassword } from "@/lib/r2";
 
 export const runtime = "edge";
 
 /** PATCH /api/rename — 表示名を変更 */
 export async function PATCH(req: NextRequest) {
-  if (req.headers.get("x-admin-password") !== process.env.ADMIN_PASSWORD)
+  if (req.headers.get("x-admin-password") !== getAdminPassword())
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = (await req.json()) as { key?: string; displayName?: string };
