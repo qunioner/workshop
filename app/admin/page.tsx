@@ -85,18 +85,22 @@ export default function AdminPage() {
 
   // ── Auth ──────────────────────────────────────────────────────────────────
 
-  const fetchFiles = useCallback(async (pw: string): Promise<{ ok: boolean; status?: number }> => {
+  const fetchFiles = useCallback(async (pw: string): Promise<{ ok: boolean; status?: number; errorMsg?: string }> => {
     setLoading(true);
     try {
       const res = await fetch("/api/upload", {
         headers: { "x-admin-password": pw },
       });
-      if (!res.ok) return { ok: false, status: res.status };
+      if (!res.ok) {
+        let errorMsg = "";
+        try { const j = await res.json(); errorMsg = j.error ?? ""; } catch { /* ignore */ }
+        return { ok: false, status: res.status, errorMsg };
+      }
       const data = await res.json();
       setFiles(data.files);
       return { ok: true };
-    } catch {
-      return { ok: false, status: 0 };
+    } catch (e) {
+      return { ok: false, status: 0, errorMsg: String(e) };
     } finally {
       setLoading(false);
     }
@@ -113,7 +117,7 @@ export default function AdminPage() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setAuthError("");
-    const { ok, status } = await fetchFiles(password);
+    const { ok, status, errorMsg } = await fetchFiles(password);
     if (ok) {
       sessionStorage.setItem(SESSION_KEY, password);
       savedPw.current = password;
@@ -121,7 +125,7 @@ export default function AdminPage() {
     } else if (status === 401) {
       setAuthError("パスワードが違います");
     } else {
-      setAuthError(`サーバーエラー (${status}) — R2接続を確認してください`);
+      setAuthError(`[${status}] ${errorMsg || "不明なエラー"}`);
     }
   }
 
