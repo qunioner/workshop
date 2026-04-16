@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Nunito } from "next/font/google";
-import OilBackground from "@/components/OilBackground";
+import FluidBackground from "@/components/FluidBackground";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -172,7 +172,7 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center px-6 py-16 gap-10">
-      <OilBackground />
+      <FluidBackground />
 
       {/* コンテンツ（背景の上） */}
       <div className="relative z-10 w-full flex flex-col items-center gap-10">

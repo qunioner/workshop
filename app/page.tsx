@@ -2,7 +2,7 @@
 
 import { Nunito } from "next/font/google";
 import Image from "next/image";
-import OilBackground from "@/components/OilBackground";
+import FluidBackground from "@/components/FluidBackground";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -13,7 +13,7 @@ const LINE2_OFFSET = TITLE_LINE1.length + 1;
 export default function TopPage() {
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center px-6">
-      <OilBackground />
+      <FluidBackground />
 
       <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12" style={{ width: "90%", margin: "7.5% auto" }}>
 
