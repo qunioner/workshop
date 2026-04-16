@@ -2,6 +2,8 @@ import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { NextRequest } from "next/server";
 import { s3, BUCKET } from "@/lib/r2";
 
+export const runtime = "edge";
+
 /**
  * GET /api/stream?key=xxx
  * R2 の音声ファイルを同一オリジンとしてストリーミング。

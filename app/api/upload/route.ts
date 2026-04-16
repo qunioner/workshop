@@ -6,6 +6,8 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 import { s3, BUCKET, META_KEY, getMeta, saveMeta } from "@/lib/r2";
 
+export const runtime = "edge";
+
 function checkAuth(req: NextRequest) {
   return req.headers.get("x-admin-password") === process.env.ADMIN_PASSWORD;
 }
@@ -54,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   const sanitized = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const key = `${Date.now()}_${sanitized}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
+  const buffer = new Uint8Array(await file.arrayBuffer());
   const displayName = sanitized.replace(/\.[^.]+$/, "");
 
   await s3.send(

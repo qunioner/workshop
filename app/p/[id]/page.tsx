@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getMeta } from "@/lib/r2";
 import PlayerClient from "./PlayerClient";
 
+export const runtime = "edge";
+
 type Props = {
   params: Promise<{ id: string }>;
 };

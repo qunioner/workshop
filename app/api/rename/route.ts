@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getMeta, saveMeta } from "@/lib/r2";
 
+export const runtime = "edge";
+
 /** PATCH /api/rename — 表示名を変更 */
 export async function PATCH(req: NextRequest) {
   if (req.headers.get("x-admin-password") !== process.env.ADMIN_PASSWORD)
