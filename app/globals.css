@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* タイトル文字のバリアブルフォントアニメーション */
+@keyframes title-bounce {
+  0%, 100% {
+    transform: translateY(0px);
+    font-variation-settings: "wght" 300;
+  }
+  50% {
+    transform: translateY(-10px);
+    font-variation-settings: "wght" 900;
+  }
+}
