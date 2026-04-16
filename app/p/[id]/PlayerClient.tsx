@@ -219,7 +219,7 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
         alt="character"
         className="w-36 sm:w-44 object-contain drop-shadow-2xl"
         style={{
-          animation: "char-float 12s linear infinite",
+          animation: "char-float 8s linear infinite",
           filter: "brightness(0.75) contrast(1.05) saturate(0.85)",
         }}
       />

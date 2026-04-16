@@ -12,24 +12,22 @@ const LINE2_OFFSET = TITLE_LINE1.length + 1;
 
 export default function TopPage() {
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center px-4">
-      {/* 油膜背景 */}
+    <main className="relative min-h-screen flex flex-col items-center justify-center px-6">
       <OilBackground />
 
-      {/* コンテンツ */}
-      <div className="relative z-10 flex flex-col items-center gap-10">
+      <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-12 w-full max-w-2xl">
+
         {/* タイトル */}
         <h1
-          className={`${nunito.className} text-5xl sm:text-6xl font-black text-center leading-tight`}
+          className={`${nunito.className} font-black text-center leading-none
+            text-6xl sm:text-8xl md:text-9xl`}
         >
           <div>
             {TITLE_LINE1.split("").map((ch, i) => (
               <span
                 key={i}
                 className="inline-block text-white"
-                style={{
-                  animation: `title-bounce 2s ease-in-out ${i * 0.08}s infinite`,
-                }}
+                style={{ animation: `title-bounce 2s ease-in-out ${i * 0.08}s infinite` }}
               >
                 {ch === " " ? "\u00A0" : ch}
               </span>
@@ -40,11 +38,9 @@ export default function TopPage() {
               <span
                 key={i}
                 className="inline-block text-white"
-                style={{
-                  animation: `title-bounce 2s ease-in-out ${(LINE2_OFFSET + i) * 0.08}s infinite`,
-                }}
+                style={{ animation: `title-bounce 2s ease-in-out ${(LINE2_OFFSET + i) * 0.08}s infinite` }}
               >
-                {ch === " " ? "\u00A0" : ch}
+                {ch}
               </span>
             ))}
           </div>
@@ -54,11 +50,11 @@ export default function TopPage() {
         <Image
           src="/top-c.png"
           alt="character"
-          width={220}
-          height={220}
-          className="object-contain drop-shadow-2xl"
+          width={400}
+          height={400}
+          className="w-56 sm:w-80 md:w-96 object-contain drop-shadow-2xl"
           style={{
-            animation: "char-float 12s linear infinite",
+            animation: "char-float 8s linear infinite",
             filter: "brightness(0.75) contrast(1.05) saturate(0.85)",
           }}
           priority
