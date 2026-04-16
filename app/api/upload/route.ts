@@ -10,14 +10,14 @@ import {
   META_KEY,
   getMeta,
   saveMeta,
-  getAdminPassword,
+  ADMIN_PASSWORD,
   getPublicDomain,
 } from "@/lib/r2";
 
 export const runtime = "edge";
 
 function checkAuth(req: NextRequest) {
-  return req.headers.get("x-admin-password") === getAdminPassword();
+  return req.headers.get("x-admin-password") === ADMIN_PASSWORD;
 }
 
 /** GET /api/upload — ファイル一覧 */
