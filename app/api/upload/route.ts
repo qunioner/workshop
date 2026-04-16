@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
   if (!checkAuth(req))
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  try {
   const s3 = createS3Client();
   const bucket = getBucketName();
 
@@ -50,6 +51,10 @@ export async function GET(req: NextRequest) {
     }));
 
   return NextResponse.json({ files });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 }
 
 /** POST /api/upload — アップロード */
