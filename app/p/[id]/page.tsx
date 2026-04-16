@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getMeta } from "@/lib/r2";
+import { getMeta, getEnv } from "@/lib/r2";
 import PlayerClient from "./PlayerClient";
 
 export const runtime = "edge";
@@ -27,7 +27,6 @@ export default async function PlayPage({ params }: Props) {
   const key = decodeURIComponent(id);
   const meta = await getMeta();
   const displayName = getDisplayName(key, meta);
-  // 同一オリジン経由でストリーミング（Web Audio API の CORS 制限を回避）
   const audioUrl = `/api/stream?key=${encodeURIComponent(key)}`;
 
   return (
