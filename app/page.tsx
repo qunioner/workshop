@@ -48,7 +48,7 @@ export default function TopPage() {
 
         {/* キャラクター */}
         <Image
-          src="/top-c.png"
+          src="/kyara.png"
           alt="character"
           width={400}
           height={400}

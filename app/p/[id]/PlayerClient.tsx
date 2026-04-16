@@ -215,7 +215,7 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
 
       {/* キャラクター */}
       <img
-        src="/top-c.png"
+        src="/kyara.png"
         alt="character"
         className="w-36 sm:w-44 object-contain drop-shadow-2xl"
         style={{
