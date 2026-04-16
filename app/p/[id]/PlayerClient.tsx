@@ -218,6 +218,7 @@ export default function PlayerClient({ audioUrl, displayName, fileKey }: Props) 
         src="/top-c.png"
         alt="character"
         className="w-36 sm:w-44 object-contain drop-shadow-2xl"
+        style={{ animation: "char-float 12s linear infinite" }}
       />
 
       {/* キャッチコピー */}

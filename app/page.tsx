@@ -57,6 +57,7 @@ export default function TopPage() {
           width={220}
           height={220}
           className="object-contain drop-shadow-2xl"
+          style={{ animation: "char-float 12s linear infinite" }}
           priority
         />
       </div>
