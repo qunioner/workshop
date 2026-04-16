@@ -4,7 +4,7 @@ import {
   DeleteObjectsCommand,
 } from "@aws-sdk/client-s3";
 import { NextRequest, NextResponse } from "next/server";
-import { s3, BUCKET, META_KEY, getMeta, saveMeta } from "@/lib/r2";
+import { createS3Client, getBucketName, META_KEY, getMeta, saveMeta } from "@/lib/r2";
 
 export const runtime = "edge";
 
@@ -17,8 +17,11 @@ export async function GET(req: NextRequest) {
   if (!checkAuth(req))
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const s3 = createS3Client();
+  const bucket = getBucketName();
+
   const [listResult, meta] = await Promise.all([
-    s3.send(new ListObjectsV2Command({ Bucket: BUCKET })),
+    s3.send(new ListObjectsV2Command({ Bucket: bucket })),
     getMeta(),
   ]);
 
@@ -59,9 +62,10 @@ export async function POST(req: NextRequest) {
   const buffer = new Uint8Array(await file.arrayBuffer());
   const displayName = sanitized.replace(/\.[^.]+$/, "");
 
+  const s3 = createS3Client();
   await s3.send(
     new PutObjectCommand({
-      Bucket: BUCKET,
+      Bucket: getBucketName(),
       Key: key,
       Body: buffer,
       ContentType: file.type || "audio/mpeg",
@@ -88,9 +92,10 @@ export async function DELETE(req: NextRequest) {
   if (!keys.length)
     return NextResponse.json({ error: "keys が必要です" }, { status: 400 });
 
+  const s3 = createS3Client();
   await s3.send(
     new DeleteObjectsCommand({
-      Bucket: BUCKET,
+      Bucket: getBucketName(),
       Delete: { Objects: keys.map((k) => ({ Key: k })) },
     })
   );

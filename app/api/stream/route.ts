@@ -1,6 +1,6 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { NextRequest } from "next/server";
-import { s3, BUCKET } from "@/lib/r2";
+import { createS3Client, getBucketName } from "@/lib/r2";
 
 export const runtime = "edge";
 
@@ -16,9 +16,10 @@ export async function GET(req: NextRequest) {
   const rangeHeader = req.headers.get("range") ?? undefined;
 
   try {
+    const s3 = createS3Client();
     const result = await s3.send(
       new GetObjectCommand({
-        Bucket: BUCKET,
+        Bucket: getBucketName(),
         Key: key,
         ...(rangeHeader ? { Range: rangeHeader } : {}),
       })
